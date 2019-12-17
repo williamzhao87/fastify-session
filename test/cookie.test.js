@@ -256,7 +256,7 @@ test('should set session non secure cookie', async (t) => {
   t.regex(cookie, /sessionId=[\w-]{32}.[\w-%]{43,55}; Path=\/; HttpOnly/)
 })
 
-test('should set session non secure cookie secureAuto', async (t) => {
+test('should set session non secure cookie secure auto', async (t) => {
   t.plan(2)
   const options = {
     secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
@@ -273,7 +273,7 @@ test('should set session non secure cookie secureAuto', async (t) => {
   t.regex(cookie, /sessionId=[\w-]{32}.[\w-%]{43,55}; Path=\/; HttpOnly/)
 })
 
-test('should set session cookie secureAuto', async (t) => {
+test('should set session cookie secure auto', async (t) => {
   t.plan(2)
   const fastify = Fastify()
   fastify.addHook('onRequest', async (request, reply) => {
@@ -299,7 +299,7 @@ test('should set session cookie secureAuto', async (t) => {
   t.regex(cookie, /sessionId=[\w-]{32}.[\w-%]{43,55}; Path=\/; HttpOnly/)
 })
 
-test('should set session secure cookie secureAuto http encrypted', async (t) => {
+test('should set session secure cookie secure auto http encrypted', async (t) => {
   t.plan(2)
   const fastify = Fastify()
   fastify.addHook('onRequest', async (request, reply) => {
@@ -325,7 +325,7 @@ test('should set session secure cookie secureAuto http encrypted', async (t) => 
   t.regex(cookie, /sessionId=[\w-]{32}.[\w-%]{43,55}; Path=\/; HttpOnly; Secure/)
 })
 
-test('should set session secure cookie secureAuto x-forwarded-proto header', async (t) => {
+test('should set session secure cookie secure auto x-forwarded-proto header', async (t) => {
   t.plan(2)
   const options = {
     secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
@@ -339,6 +339,26 @@ test('should set session secure cookie secureAuto x-forwarded-proto header', asy
   const { statusCode, cookie } = await request({
     uri: `http://localhost:${port}`,
     headers: { 'x-forwarded-proto': 'https' }
+  })
+
+  t.is(statusCode, 200)
+  t.regex(cookie, /sessionId=[\w-]{32}.[\w-%]{43,55}; Path=\/; HttpOnly; Secure/)
+})
+
+test('should set session secure cookie secure auto custom header', async (t) => {
+  t.plan(2)
+  const options = {
+    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
+    cookie: { secure: 'auto', secureAutoHeader: 'x-forwarded-custom' }
+  }
+  const port = await testServer((request, reply) => {
+    request.session.test = {}
+    reply.send(200)
+  }, options)
+
+  const { statusCode, cookie } = await request({
+    uri: `http://localhost:${port}`,
+    headers: { 'x-forwarded-custom': 'https' }
   })
 
   t.is(statusCode, 200)
