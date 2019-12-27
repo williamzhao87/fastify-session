@@ -81,8 +81,8 @@ declare namespace FastifySessionPlugin {
     httpOnly?: boolean;
     /**  The `boolean` value of the `Secure` attribute. Set this option to false when communicating over an unencrypted (HTTP) connection or auto if automatically detecting. Defaults to true. */
     secure?: boolean | string;
-    /**  The `boolean` value of the `SecureAutoHeader` attribute. Set this option when using a custom header name to check for in conjunction with secure: auto mode. */
-    secureAutoHeader?: string;
+    /**  The `string` value of the `secureAutoHeaders` attribute. Set this option when using custom header names to check for in conjunction with secure: auto mode. */
+    secureAutoHeaders?: string;
     /**  The expiration `date` used for the `Expires` attribute. If both `expires` and `maxAge` are set, then `expires` is used. */
     expires?: Date | number;
     /** The `boolean` or `string` of the `SameSite` attribute.  */

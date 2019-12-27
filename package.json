@@ -4,6 +4,7 @@
   "description": "a session plugin for fastify",
   "main": "lib/fastifySession.js",
   "scripts": {
+    "build": "rollup -c",
     "unit": "ava test/*.test.js",
     "tsc-check": "tsc --project ./types/tsconfig.json --noEmit",
     "test": "npm run lint && npm run unit && npm run tsc-check",
@@ -30,12 +31,16 @@
     "url": "git+https://github.com/SerayaEryn/fastify-session.git"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^6.0.0",
     "@types/node": "^12.12.7",
     "ava": "^2.4.0",
     "fastify": "^2.0.0",
     "fastify-cookie": "^3.0.0",
     "nyc": "^14.1.1",
     "request": "^2.88.0",
+    "rollup": "^1.27.14",
     "standard": "^14.0.0",
     "typescript": "^3.4.5"
   },
